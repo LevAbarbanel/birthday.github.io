@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>יום הולדת להילית</title>
+    <title>האתגר החמישי - יום הולדת להילית</title>
     <style>
         * {
             margin: 0;
@@ -47,21 +47,21 @@
             animation: slideUp 0.5s ease-out;
         }
 
-        .instruction {
+        .riddle {
             background: rgba(255, 255, 255, 0.2);
-            padding: 20px;
+            padding: 30px;
             border-radius: 10px;
             margin: 30px 0;
-            font-weight: bold;
+            font-family: 'Courier New', monospace;
             border: 2px solid rgba(255, 255, 255, 0.3);
+            font-size: 1.3em;
+            line-height: 1.8;
+            text-align: left;
         }
 
-        .url-example {
-            font-family: monospace;
-            background: rgba(0, 0, 0, 0.2);
-            padding: 10px;
-            border-radius: 5px;
-            margin: 10px 0;
+        .comment {
+            color: #ffe66d;
+            margin-bottom: 15px;
         }
 
         .final-note {
@@ -118,26 +118,32 @@
                 opacity: 0;
             }
         }
+
+        .hidden-comment {
+            display: none;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🎉 ברוכה הבאה לחידה הכי טובה 🎉</h1>
-        <p dir="rtl">
-            זו אינה מתנת יום הולדת רגילה.<br>
-            אני לא פשוט נותן לך את המתנה, זה לא יהיה כיף.<br>
-            במקום זאת, תצטרך להשקיע מאמץ קטן כדי לקבל את מתנת יום ההולדת.
+    <div dir="rtl" class="container">
+        <h1>🖥️ האתגר החמישי 🖥️</h1>
+        <p>
+            עבודה מצוינת! הצלחת!<br>
+            אבל זה קצת קשה....
         </p>
-        <div dir="rtl" class="instruction">
-            כדי להמשיך לבעיה הבאה תצטרך<br>
-            להקליד את התשובה שלך אחרי כתובת האתר:<br>
-            <div dir="ltr" class="url-example">https://www.levabarbanel.github.io/birthday.github.io/____.html</div>
-            <div class="url-example">לדוגמה: https://www.levabarbanel.github.io/birthday.github.io/Sweet-Start.html</div>
+        <p>
+            זוכרת עמליה?<br>
+            ובכן, החידה הזו משתמשת בקוד<br>
+            אז....
+        </p>
+        <div dir="rtl" class="riddle">
+            <p style="text-align: center">//זמן "לבדוק" את הקוד</p>
+            → התשובה ממש כאן! למה את לא יכולה לראות אותה? ← <!-- "wow":וואו וואו באמת הבנת מה לעשות! התשובה היא  -->
         </div>
-        <p dir="rtl" class="final-note">
-            ובכן, למה אתה מחכה?!<br>
-            הבעיה הראשונה שלך כבר כאן!<br>
-            קדימה קדימה! ✨
+        <p class="final-note">
+            קדימה!<br>
+            תבדקי את זה!<br>
+            צ'ופ צ'ופ ✨
         </p>
     </div>
 
@@ -156,6 +162,7 @@
         }
 
         setInterval(createSparkle, 300);
+
     </script>
 </body>
 </html>

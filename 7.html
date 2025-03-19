@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>האתגר החמישי - יום הולדת להילית</title>
+    <title>קיבלת טרול</title>
     <style>
         * {
             margin: 0;
@@ -22,6 +22,8 @@
             color: white;
             padding: 20px;
             text-align: center;
+            overflow: hidden;
+            position: relative;
         }
 
         .container {
@@ -31,44 +33,219 @@
             padding: 40px;
             border-radius: 20px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            animation: fadeIn 1s ease-in;
+            animation: pulsate 2s infinite;
+            z-index: 1;
         }
 
-        h1 {
+        .troll-face {
+            width: 300px;
+            height: 300px;
+            background: #000;
+            border-radius: 50%;
+            position: relative;
+            margin: 0 auto 30px;
+            overflow: hidden;
+        }
+
+        .face {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .eyes {
+            display: flex;
+            justify-content: space-around;
+            position: absolute;
+            width: 100%;
+            top: 30%;
+        }
+
+        .eye {
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 50%;
+            position: relative;
+            animation: blink 4s infinite;
+        }
+
+            .eye::after {
+                content: '';
+                position: absolute;
+                width: 30px;
+                height: 30px;
+                background: #000;
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                animation: lookAround 3s infinite;
+            }
+
+        .mouth {
+            width: 200px;
+            height: 100px;
+            background: white;
+            position: absolute;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 0 0 100px 100px;
+            overflow: hidden;
+            animation: laugh 0.5s infinite;
+        }
+
+            .mouth::after {
+                content: '';
+                position: absolute;
+                width: 100%;
+                height: 40px;
+                background: #ff0000;
+                bottom: 0;
+                animation: tongue 1s infinite;
+            }
+
+        .message {
             font-size: 2.5em;
-            margin-bottom: 30px;
+            margin: 20px 0;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            animation: bounce 1s infinite;
         }
 
-        p {
-            font-size: 1.2em;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            animation: slideUp 0.5s ease-out;
-        }
-
-        .riddle {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 30px;
-            border-radius: 10px;
-            margin: 30px 0;
-            font-family: 'Courier New', monospace;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            font-size: 1.3em;
-            line-height: 1.8;
-            text-align: left;
-        }
-
-        .comment {
+        .answer {
+            font-size: 2.5em;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            animation: pulse 1s infinite;
             color: #ffe66d;
-            margin-bottom: 15px;
+            font-weight: bold;
+            display: none;
         }
 
-        .final-note {
-            font-style: italic;
-            margin-top: 30px;
-            font-size: 1.3em;
-            color: #ffe66d;
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .rickroll-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background-color: white;
+            animation: sparkle 1.5s infinite;
+            z-index: -1;
+        }
+
+        .troll-clone {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 50%;
+            animation: float 5s infinite linear;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: -1;
+        }
+
+            .troll-clone .face {
+                transform: scale(0.5);
+            }
+
+        @keyframes pulsate {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes blink {
+            0%, 45%, 55%, 100% {
+                height: 60px;
+            }
+
+            50% {
+                height: 5px;
+            }
+        }
+
+        @keyframes lookAround {
+            0%, 100% {
+                transform: translate(-50%, -50%);
+            }
+
+            25% {
+                transform: translate(-70%, -50%);
+            }
+
+            50% {
+                transform: translate(-50%, -70%);
+            }
+
+            75% {
+                transform: translate(-30%, -50%);
+            }
+        }
+
+        @keyframes laugh {
+            0%, 100% {
+                height: 100px;
+            }
+
+            50% {
+                height: 80px;
+            }
+        }
+
+        @keyframes tongue {
+            0%, 100% {
+                height: 40px;
+            }
+
+            50% {
+                height: 30px;
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
         }
 
         @keyframes fadeIn {
@@ -93,15 +270,6 @@
             }
         }
 
-        .sparkle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            border-radius: 50%;
-            background-color: white;
-            animation: sparkle 1.5s infinite;
-        }
-
         @keyframes sparkle {
             0% {
                 transform: scale(0);
@@ -119,35 +287,97 @@
             }
         }
 
-        .hidden-comment {
+        @keyframes float {
+            0% {
+                transform: translate(calc(random(100) * 1vw), calc(random(100) * 1vh)) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(calc(random(100) * 1vw), calc(random(100) * 1vh)) rotate(360deg);
+            }
+        }
+
+        .hidden {
             display: none;
+        }
+
+        .visible {
+            animation: fadeIn 1s ease-in;
         }
     </style>
 </head>
 <body>
-    <div dir="rtl" class="container">
-        <h1>🖥️ האתגר החמישי 🖥️</h1>
-        <p>
-            עבודה מצוינת! הצלחת!<br>
-            אבל זה קצת קשה....
-        </p>
-        <p>
-            זוכרת עמליה?<br>
-            ובכן, החידה הזו משתמשת בקוד<br>
-            אז....
-        </p>
-        <div dir="rtl" class="riddle">
-            <p style="text-align: center">//זמן "לבדוק" את הקוד</p>
-            → התשובה ממש כאן! למה את לא יכולה לראות אותה? ← <!-- "wow":וואו וואו באמת הבנת מה לעשות! התשובה היא  -->
+    <div class="container">
+        <div class="troll-face">
+            <div class="face">
+                <div class="eyes">
+                    <div class="eye"></div>
+                    <div class="eye"></div>
+                </div>
+                <div class="mouth"></div>
+            </div>
         </div>
-        <p class="final-note">
-            קדימה!<br>
-            תבדקי את זה!<br>
-            צ'ופ צ'ופ ✨
-        </p>
+        <h1 dir="rtl" class="message">
+            תלחצי על המסך<br />
+            כי אכלת הטרלה!
+        </h1>
+        <h1 dir="rtl" class="answer">התשובה היא: wtf</h1>
     </div>
 
+    <div class="rickroll-container hidden">
+        <iframe width="0" height="0" src="about:blank" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen id="rickroll-video"></iframe>
+    </div>
+
+    <audio id="laugh-sound" preload="auto">
+        <source src="/api/placeholder/400/320" type="audio/mp3">
+    </audio>
+
     <script>
+        // Show the answer after 4 seconds
+        setTimeout(function () {
+            document.querySelector('.message').style.display = 'none';
+            document.querySelector('.answer').style.display = 'block';
+        }, 5000);
+
+        // Create troll clones
+        function createTrollClones() {
+            for (let i = 0; i < 10; i++) {
+                const clone = document.createElement('div');
+                clone.className = 'troll-clone';
+                clone.style.left = Math.random() * window.innerWidth + 'px';
+                clone.style.top = Math.random() * window.innerHeight + 'px';
+
+                const face = document.createElement('div');
+                face.className = 'face';
+
+                const eyes = document.createElement('div');
+                eyes.className = 'eyes';
+
+                const eye1 = document.createElement('div');
+                eye1.className = 'eye';
+
+                const eye2 = document.createElement('div');
+                eye2.className = 'eye';
+
+                const mouth = document.createElement('div');
+                mouth.className = 'mouth';
+
+                eyes.appendChild(eye1);
+                eyes.appendChild(eye2);
+                face.appendChild(eyes);
+                face.appendChild(mouth);
+                clone.appendChild(face);
+
+                document.body.appendChild(clone);
+
+                // Animate the clone
+                setInterval(() => {
+                    clone.style.left = Math.random() * window.innerWidth + 'px';
+                    clone.style.top = Math.random() * window.innerHeight + 'px';
+                }, 5000);
+            }
+        }
+
         // Add sparkle effect
         function createSparkle() {
             const sparkle = document.createElement('div');
@@ -161,8 +391,67 @@
             }, 1500);
         }
 
+        // Set up Rickroll
+        function startRickroll() {
+            const container = document.querySelector('.rickroll-container');
+            container.classList.remove('hidden');
+            container.classList.add('visible');
+
+            const video = document.getElementById('rickroll-video');
+            // Replace with actual video embed URL for Rick Astley - Never Gonna Give You Up
+            video.setAttribute('src', 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&controls=0&disablekb=1&fs=0&loop=1&modestbranding=1&rel=0');
+            video.style.width = '100%';
+            video.style.height = '100%';
+        }
+
+        // Wait a few seconds before starting the rickroll
+        setTimeout(() => {
+            startRickroll();
+            createTrollClones();
+        }, 2000);
+
+        // Create sparkles
         setInterval(createSparkle, 300);
 
+        // Make the page respond to clicks by creating more troll clones
+        document.addEventListener('click', () => {
+            for (let i = 0; i < 3; i++) {
+                const clone = document.createElement('div');
+                clone.className = 'troll-clone';
+                clone.style.left = (event.clientX - 50) + 'px';
+                clone.style.top = (event.clientY - 50) + 'px';
+
+                const face = document.createElement('div');
+                face.className = 'face';
+
+                const eyes = document.createElement('div');
+                eyes.className = 'eyes';
+
+                const eye1 = document.createElement('div');
+                eye1.className = 'eye';
+
+                const eye2 = document.createElement('div');
+                eye2.className = 'eye';
+
+                const mouth = document.createElement('div');
+                mouth.className = 'mouth';
+
+                eyes.appendChild(eye1);
+                eyes.appendChild(eye2);
+                face.appendChild(eyes);
+                face.appendChild(mouth);
+                clone.appendChild(face);
+
+                document.body.appendChild(clone);
+
+                // Animate the clone away
+                setTimeout(() => {
+                    clone.style.transition = 'all 3s ease';
+                    clone.style.left = Math.random() * window.innerWidth + 'px';
+                    clone.style.top = Math.random() * window.innerHeight + 'px';
+                }, 100);
+            }
+        });
     </script>
 </body>
 </html>

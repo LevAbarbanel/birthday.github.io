@@ -25,6 +25,20 @@
             text-align: center;
             overflow-y: auto; /* Allow vertical scrolling */
             position: relative;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+
+        /* Background text effect */
+        .bg-text {
+            position: fixed;
+            color: rgba(255, 255, 255, 0.15);
+            font-size: 2rem;
+            font-weight: bold;
+            pointer-events: none;
+            z-index: -1;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
         }
 
         .container {
@@ -84,6 +98,38 @@
             margin: 10px;
             display: inline-block;
             animation: bounce 2s infinite;
+        }
+
+        /* Music button styles */
+        .music-button {
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+            border: none;
+            border-radius: 50px;
+            padding: 15px 30px;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+            .music-button:hover {
+                transform: scale(1.05);
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+            }
+
+            .music-button:active {
+                transform: scale(0.98);
+            }
+
+        .music-icon {
+            margin-left: 10px;
         }
 
         /* Animation keyframes */
@@ -231,6 +277,15 @@
                 אה!<br />
                 את זה...<br />
                 <br />
+
+                <!-- Music Button -->
+                <button id="playButton" class="music-button">
+                    <span class="music-icon">🎵</span>
+                    הכי יפה בעולם - מאור כהן
+                    <span class="music-icon">🎵</span>
+                </button>
+                <audio id="songAudio" src="b.mp3"></audio>
+
                 את כל כך מיוחדת, הילית. החיוך שלך מאיר כל חדר שאת נכנסת אליו. החוכמה שלך מרשימה אותי בכל פעם מחדש, איך את מצליחה לפתור כל בעיה ולראות לכולם בצורה כל כך פסיכית ויצירתית. העיניים מראות כמה את חכמה וכמה יש לך לב ענק. כשאת צוחקת, העולם כולו נראה מקום טוב יותר. הרגישות שלך לכולם פשוט מדהימה אותי כל הזמן. אני אוהב את הדרך שבה את מקשיבה, את הדרך שבה את חושבת, את הדרך המיוחדת שיש רק לך להסתכל על דברים. כשאנחנו ביחד, הזמן פשוט כל כך כיף. את לא רק יפה מבחוץ - את יפה גם מבפנים, ואני מעריץ כל חלק ממך. הלוואי שתראי את עצמך כפי שאני רואה אותך - מושלמת בדיוק כמו שאת.
             </p>
         </div>
@@ -241,6 +296,86 @@
     </div>
 
     <script>
+        // Music player functionality
+        const playButton = document.getElementById('playButton');
+        const songAudio = document.getElementById('songAudio');
+        let bgTextInterval;
+        let isPlaying = false;
+
+        playButton.addEventListener('click', function () {
+            if (songAudio.paused) {
+                songAudio.play();
+                playButton.innerHTML = '<span class="music-icon">⏸️</span> לעצור את המוזיקה <span class="music-icon">⏸️</span>';
+                isPlaying = true;
+                startBackgroundTextEffect();
+            } else {
+                songAudio.pause();
+                playButton.innerHTML = '<span class="music-icon">🎵</span> הכי יפה בעולם - מאור כהן <span class="music-icon">🎵</span>';
+                isPlaying = false;
+                stopBackgroundTextEffect();
+            }
+        });
+
+        // Background text effect
+        function startBackgroundTextEffect() {
+            if (bgTextInterval) clearInterval(bgTextInterval);
+
+            // Wait 4.5 seconds before starting the effect
+            setTimeout(() => {
+                if (isPlaying) { // Double-check that music is still playing after delay
+                    bgTextInterval = setInterval(createBackgroundText, 300);
+                    // Initially create several texts
+                    for (let i = 0; i < 15; i++) {
+                        setTimeout(() => createBackgroundText(), i * 100);
+                    }
+                }
+            }, 3900); // 4.5 second delay
+        }
+
+        function stopBackgroundTextEffect() {
+            clearInterval(bgTextInterval);
+            // Fade out all existing background texts
+            const bgTexts = document.querySelectorAll('.bg-text');
+            bgTexts.forEach(text => {
+                text.style.opacity = '0';
+                setTimeout(() => text.remove(), 500);
+            });
+        }
+
+        function createBackgroundText() {
+            if (!isPlaying) return;
+
+            const text = document.createElement('div');
+            text.className = 'bg-text';
+            text.textContent = 'הכי יפה בעולם';
+
+            // Random position
+            text.style.left = Math.random() * 100 + 'vw';
+            text.style.top = Math.random() * 100 + 'vh';
+
+            // Random size
+            const size = 1 + Math.random() * 3;
+            text.style.fontSize = size + 'rem';
+
+            // Random rotation
+            const rotation = -30 + Math.random() * 60;
+            text.style.transform = `rotate(${rotation}deg)`;
+
+            document.body.appendChild(text);
+
+            // Fade in
+            setTimeout(() => {
+                text.style.opacity = '1';
+            }, 10);
+
+            // Fade out after random time
+            const duration = 3000 + Math.random() * 4000;
+            setTimeout(() => {
+                text.style.opacity = '0';
+                setTimeout(() => text.remove(), 500);
+            }, duration);
+        }
+
         // Add sparkle effect
         function createSparkle() {
             const sparkle = document.createElement('div');
