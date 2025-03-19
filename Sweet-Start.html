@@ -1,0 +1,170 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>האתגר השני - יום הולדת להילית</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-in;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        .riddle {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+            font-style: italic;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            font-size: 1.3em;
+            line-height: 1.8;
+        }
+
+        .italian-text {
+            color: #ffe66d;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .final-note {
+            font-style: italic;
+            margin-top: 30px;
+            font-size: 1.3em;
+            color: #ffe66d;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background-color: white;
+            animation: sparkle 1.5s infinite;
+        }
+
+        @keyframes sparkle {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            50% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(0);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div dir="rtl" class="container">
+        <h1>🎭 האתגר השני 🎭</h1>
+        <p>
+            בסדר בסדר...<br>
+            כל הכבוד... הגעת לכאן... איכשהו...<br>
+            מכאן זה יהיה קשה יותר :)
+        </p>
+        <p>
+            השאלה הבאה היא easy-pizzy, בדיוק כמו התשובה שלה.<br>
+            מוכנה? בואי נתחיל!
+        </p>
+        <div class="riddle">
+            <div class="italian-text">הכי יפה בעולם / מאור כהן:</div>
+            הכי יפה בעולם<br/>
+            כשהיא עומדת מולם<br />
+            אני יודע מכאן ששם<br />
+            הכי יפה בעולם<br />
+            חשבתי שאני רואה יותר מדי<br />
+            אולי אשיר לך כך<br />
+            את שיר הדנדילייט<br />
+            אני בא דברי אלי<br />
+        </div>
+        <p class="final-note">
+            קדימה! את יודעת את הנוהל!<br>
+            פתרי את זה!<br>
+            זה לא קשה ✨
+        </p>
+    </div>
+
+    <script>
+        // Add sparkle effect
+        function createSparkle() {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.style.left = Math.random() * window.innerWidth + 'px';
+            sparkle.style.top = Math.random() * window.innerHeight + 'px';
+            document.body.appendChild(sparkle);
+
+            setTimeout(() => {
+                sparkle.remove();
+            }, 1500);
+        }
+
+        setInterval(createSparkle, 300);
+    </script>
+</body>
+</html>

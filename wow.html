@@ -1,0 +1,336 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>האתגר השישי - יום הולדת להילית</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-in;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        .riddle {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+            font-family: 'Courier New', monospace;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            font-size: 1.3em;
+            line-height: 1.8;
+            text-align: center;
+        }
+
+        .comment {
+            color: #ffe66d;
+            margin-bottom: 15px;
+        }
+
+        .final-note {
+            font-style: italic;
+            margin-top: 30px;
+            font-size: 1.3em;
+            color: #ffe66d;
+        }
+
+        .runaway-button {
+            position: absolute;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            background: #ffe66d;
+            color: #333;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.05s linear;
+            z-index: 10;
+        }
+
+            .runaway-button:hover {
+                background: #ffd700;
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            }
+
+        .hidden-answer {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            font-size: 0.7em;
+            color: rgba(255, 255, 255, 0.1);
+        }
+
+        .click-counter {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 1.2em;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background-color: white;
+            animation: sparkle 1.5s infinite;
+            z-index: 0;
+        }
+
+        @keyframes sparkle {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            50% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(0);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div dir="rtl" class="container">
+        <h1>🎉 ברוכה הבאה לחידה האחרונה 🎉</h1>
+        <p>
+            יפה מאוד! הגעת לחידה האחרונה<br />
+            מוכנה?
+        </p>
+        <p>
+            הדף האחרון נמצא במרחק לחיצה!
+            בהצלחה לך!
+        </p>
+        <div dir="rtl" class="riddle">
+            <p>פשוט תלחצי על הכפתור!</p>
+        </div>
+
+        <p class="final-note">
+            בהצלחה לך! זה ייקח זמן...
+        </p>
+
+    </div>
+        <button class="runaway-button">לחץ עליי אם תוכל!</button>
+
+    <div class="hidden-answer">התשובה היא: UnCatchable</div>
+
+    <script>
+        // Variables
+        let button = document.querySelector('.runaway-button');
+        let clickCounter = document.querySelector('.click-counter');
+        let attempts = 0;
+        let lastMouseX = 0;
+        let lastMouseY = 0;
+        let mouseSpeed = 0;
+        // Change these two lines to reposition the button
+        let buttonX = 50;  // Example: 50px from the left edge
+        let buttonY = window.innerHeight - 100;  // Example: 100px from the bottom edge
+        let isMoving = false;
+
+        // Initialize button position
+        button.style.left = buttonX + 'px';
+        button.style.top = buttonY + 'px';
+
+        // Rest of your code remains the same...
+
+        // Also update the resize handler to maintain the new position style
+        window.addEventListener('resize', function () {
+            // Update button position on resize (keeping the same positioning logic)
+            buttonX = 50;  // Keep same X position
+            buttonY = window.innerHeight - 100;  // Maintain distance from bottom
+            button.style.left = buttonX + 'px';
+            button.style.top = buttonY + 'px';
+        });
+        // Initialize button position
+        button.style.left = buttonX + 'px';
+        button.style.top = buttonY + 'px';
+
+        // Track mouse movement and calculate speed
+        document.addEventListener('mousemove', function (e) {
+            // Calculate mouse speed
+            const dx = e.clientX - lastMouseX;
+            const dy = e.clientY - lastMouseY;
+            mouseSpeed = Math.sqrt(dx * dx + dy * dy);
+
+            // Update last position
+            lastMouseX = e.clientX;
+            lastMouseY = e.clientY;
+
+            // Set flag that mouse is moving
+            isMoving = true;
+
+            // Reset the flag after a short delay
+            clearTimeout(window.moveTimeout);
+            window.moveTimeout = setTimeout(() => {
+                isMoving = false;
+            }, 100);
+        });
+
+        // Update button position based on mouse position and speed
+        function updateButtonPosition() {
+            if (!isMoving) {
+                // If mouse is not moving, don't move the button
+                requestAnimationFrame(updateButtonPosition);
+                return;
+            }
+
+            // Get button and mouse positions
+            const buttonRect = button.getBoundingClientRect();
+            const buttonCenterX = buttonRect.left + buttonRect.width / 2;
+            const buttonCenterY = buttonRect.top + buttonRect.height / 2;
+
+            // Calculate vector from mouse to button
+            const vectorX = buttonCenterX - lastMouseX;
+            const vectorY = buttonCenterY - lastMouseY;
+            const distance = Math.sqrt(vectorX * vectorX + vectorY * vectorY);
+
+            // Increased detection radius - reacts from further away
+            if (distance < 500) {
+                // Calculate repulsion force based on mouse speed and distance
+                // Closer mouse = MUCH stronger repulsion (exponential)
+                const repulsionFactor = (1 - Math.min(distance, 300) / 300) * 15;
+
+                // Speed factor - faster mouse movement causes faster button movement
+                const speedFactor = Math.min(mouseSpeed, 50) / 5 + 2;
+
+                // Normalized vector
+                let moveX = 0;
+                let moveY = 0;
+
+                if (distance > 0) {
+                    moveX = (vectorX / distance) * repulsionFactor * speedFactor;
+                    moveY = (vectorY / distance) * repulsionFactor * speedFactor;
+                }
+
+                // Update button position with smooth damping
+                buttonX += moveX;
+                buttonY += moveY;
+
+                // Keep button within bounds
+                const padding = 20;
+                buttonX = Math.max(padding, Math.min(window.innerWidth - buttonRect.width - padding, buttonX));
+                buttonY = Math.max(padding, Math.min(window.innerHeight - buttonRect.height - padding, buttonY));
+
+                // Apply the new position with transform for better performance
+                button.style.transform = `translate(${buttonX - buttonRect.left + moveX * 3}px, ${buttonY - buttonRect.top + moveY * 3}px)`;
+                // Update actual position after a short delay to make movement less predictable
+                setTimeout(() => {
+                    button.style.left = buttonX + 'px';
+                    button.style.top = buttonY + 'px';
+                    button.style.transform = 'translate(0, 0)';
+                }, 50);
+            }
+
+            requestAnimationFrame(updateButtonPosition);
+        }
+
+        // Start the animation loop
+        updateButtonPosition();
+
+        // Increment attempt counter if clicked (almost impossible)
+        button.addEventListener('mousedown', function (e) {
+
+            // Navigate to 5.finish.html when clicked
+            window.location.href = 'finish.html';
+        });
+
+        // Make button dodge if user tries to tab to it
+        button.addEventListener('focus', function () {
+            button.blur();
+        });
+
+        // Add sparkle effect
+        function createSparkle() {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.style.left = Math.random() * window.innerWidth + 'px';
+            sparkle.style.top = Math.random() * window.innerHeight + 'px';
+            document.body.appendChild(sparkle);
+
+            setTimeout(() => {
+                sparkle.remove();
+            }, 1500);
+        }
+
+        setInterval(createSparkle, 300);
+
+        // Reset button position on window resize
+        window.addEventListener('resize', function () {
+            // Center the button
+            buttonX = window.innerWidth / 2 - button.offsetWidth / 2;
+            buttonY = window.innerHeight / 2 - button.offsetHeight / 2;
+            button.style.left = buttonX + 'px';
+            button.style.top = buttonY + 'px';
+        });
+    </script>
+</body>
+</html>
